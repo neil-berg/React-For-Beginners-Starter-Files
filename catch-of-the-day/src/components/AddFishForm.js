@@ -1,7 +1,7 @@
 import React from 'react';
 
 class AddFishForm extends React.Component {
-  state = {
+  initialState = {
     name: '',
     price: '',
     status: '',
@@ -9,12 +9,11 @@ class AddFishForm extends React.Component {
     image: ''
   };
 
+  state = this.initialState;
+
   onInputChange = e => {
     const name = e.target.name;
     const value = e.target.value;
-    // this.setState(() =>
-    //   name === 'price' ? { [name]: parseFloat(value) } : { [name]: value }
-    // );
     this.setState(
       name === 'price' ? { [name]: parseFloat(value) } : { [name]: value }
     );
@@ -24,7 +23,8 @@ class AddFishForm extends React.Component {
     e.preventDefault();
     const fish = this.state;
     this.props.addFish(fish);
-    e.currentTarget.reset();
+    // Clear the state, which resets the form
+    this.setState(() => this.initialState);
   };
 
   render() {
