@@ -1,10 +1,13 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { slugify } from '../helpers';
-// import { getFunName } from '../helpers';
 
 class StorePicker extends React.Component {
-  state = { storeName: '', slug: '', toStorePage: false };
+  state = {
+    storeName: '',
+    slug: '',
+    toStorePage: false
+  };
 
   handleStoreName = e => {
     this.setState({
@@ -26,20 +29,14 @@ class StorePicker extends React.Component {
     }
     return (
       <React.Fragment>
-        <form
-          action=""
-          className="store-selector"
-          onSubmit={this.goToStore}
-          onChange={this.handleStoreName}
-        >
+        <form action="" className="store-selector" onSubmit={this.goToStore}>
           <h2>Please enter a store</h2>
           <input
             type="text"
-            // ref={this.myInput}
             required
             placeholder="Store Name"
             value={this.state.value}
-            // defaultValue={getFunName()}
+            onChange={this.handleStoreName}
           />
           <button type="submit">Visit Store -></button>
         </form>
