@@ -1,21 +1,28 @@
-import React from "react";
+import React from 'react';
 
 class AddFishForm extends React.Component {
-  nameRef = React.createRef();
-  priceRef = React.createRef();
-  statusRef = React.createRef();
-  descRef = React.createRef();
-  imageRef = React.createRef();
+  state = {
+    name: '',
+    price: '',
+    status: '',
+    desc: '',
+    image: ''
+  };
+
+  onInputChange = e => {
+    const name = e.target.name;
+    const value = e.target.value;
+    // this.setState(() =>
+    //   name === 'price' ? { [name]: parseFloat(value) } : { [name]: value }
+    // );
+    this.setState(
+      name === 'price' ? { [name]: parseFloat(value) } : { [name]: value }
+    );
+  };
 
   createFish = e => {
     e.preventDefault();
-    const fish = {
-      name: this.nameRef.current.value,
-      price: parseFloat(this.priceRef.current.value),
-      status: this.statusRef.current.value,
-      desc: this.descRef.current.value,
-      image: this.imageRef.current.value
-    };
+    const fish = this.state;
     this.props.addFish(fish);
     e.currentTarget.reset();
   };
@@ -23,28 +30,37 @@ class AddFishForm extends React.Component {
   render() {
     return (
       <form className="fish-edit" onSubmit={this.createFish}>
-        <input name="name" ref={this.nameRef} type="text" placeholder="Name" />
+        <input
+          name="name"
+          type="text"
+          placeholder="Name"
+          value={this.state.name}
+          onChange={this.onInputChange}
+        />
         <input
           name="price"
-          ref={this.priceRef}
           type="text"
           placeholder="Price"
+          value={this.state.price}
+          onChange={this.onInputChange}
         />
-        <select name="status" ref={this.statusRef} value="status">
+        <select name="status" onChange={this.onInputChange}>
           <option value="available">Fresh!</option>
           <option value="unavailable">Sold Out!</option>
         </select>
         <textarea
           name="desc"
-          ref={this.descRef}
           type="text"
           placeholder="Desc"
+          value={this.state.desc}
+          onChange={this.onInputChange}
         />
         <input
           name="image"
-          ref={this.imageRef}
           type="text"
           placeholder="Image"
+          value={this.state.image}
+          onChange={this.onInputChange}
         />
         <button type="submit">+ Add Fish</button>
       </form>
