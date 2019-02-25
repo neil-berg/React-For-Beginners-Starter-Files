@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { slugify } from '../helpers';
 // import { getFunName } from '../helpers';
 
 class StorePicker extends React.Component {
@@ -13,11 +14,10 @@ class StorePicker extends React.Component {
 
   goToStore = e => {
     e.preventDefault();
-    this.setState(() => ({
-      slug: this.state.storeName.split(' ').join('-'),
+    this.setState({
+      slug: slugify(this.state.storeName),
       toStorePage: true
-    }));
-    // const storeName = this.myInput.current.value;
+    });
   };
 
   render() {
